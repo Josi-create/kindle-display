@@ -346,7 +346,7 @@ BEISPIEL = {
     "raeume": [("Wohnzimmer", 19.6), ("Küche", 21.1), ("Arbeitszimmer", 20.8),
                ("Bad", 19.2), ("Kind", 20.3), ("Schlafen", 22.4)],
     "muell": [("Do, 19.11.", "Restmüll"), ("Mo, 23.11.", "Papier")],
-    "pflanzen": [("Ficus", 30, 20)],
+    "pflanzen": [("Ficus", 30, 20), ("Yucca", 12, 15)],
 }
 
 if __name__ == "__main__":

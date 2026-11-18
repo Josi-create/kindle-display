@@ -20,7 +20,7 @@ The page is in German, and so are the identifiers and comments in the code.
 - Forecast for the next four days
 - Appointments for today and tomorrow. Today always comes first; tomorrow gets the lines that are left.
 - The next two waste collection days
-- Soil moisture of one plant, with a watering threshold
+- Soil moisture of up to two plants, each with a watering threshold
 - At night the sun is replaced by the moon in its current phase
 
 ## How it works

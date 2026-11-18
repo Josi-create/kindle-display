@@ -179,7 +179,7 @@ def termine(b, d, y, unten):
 
 
 def fuss(b, d, y):
-    """Schwarzer Balken bis zum unteren Rand: Müllabfuhr und Pflanze."""
+    """Schwarzer Balken bis zum unteren Rand: Müllabfuhr und Pflanzen."""
     b.rechteck(0, y, BREITE, HOEHE)
     b.titel(RAND, y + 21, "Müllabfuhr", HELL)
     zy = y + 22
@@ -189,23 +189,25 @@ def fuss(b, d, y):
         zy += 21
         breite = b.text(RAND, zy, wann, 16, "fett", WEISS)
         b.text(RAND + breite + 8, zy, was, 16, farbe=WEISS, max_breite=300 - breite)
+    # Rechts: bis zu zwei Pflanzen, je eine Zeile mit Balken und Markierung an der Gieß-Grenze
     x = 372
-    for name, feuchte, grenze in d["pflanzen"][:1]:
-        b.titel(x, y + 21, name, HELL)
+    b.titel(x, y + 21, "Pflanzen", HELL)
+    for i, (name, feuchte, grenze) in enumerate(d["pflanzen"][:2]):
+        zy = y + 43 + i * 21
+        b.text(x, zy, name, 16, "fett", WEISS, max_breite=58)
         if feuchte is None:
-            b.text(x, y + 48, "–", 22, "fett", HELL)
+            b.text(x + 106, zy, "–", 16, farbe=HELL, anker="rs")
             continue
-        b.text(x, y + 48, f"{feuchte:.0f} %", 22, "fett", WEISS)
-        bx1, bx2, by = x + 74, BREITE - RAND, y + 35
-        b.rechteck(bx1, by, bx2, by + 12, farbe=SCHWARZ, radius=3, rand=WEISS, dicke=1.5)
-        b.rechteck(bx1 + 3, by + 3, bx1 + 3 + (bx2 - bx1 - 6) * min(feuchte, 100) / 100, by + 9,
+        b.text(x + 106, zy, f"{feuchte:.0f} %", 16, farbe=WEISS, anker="rs")
+        if feuchte < grenze:
+            b.text(BREITE - RAND, zy, "gießen!", 16, "fett", WEISS, anker="rs")
+            continue
+        bx1, bx2, by = x + 116, BREITE - RAND, zy - 11
+        b.rechteck(bx1, by, bx2, by + 11, farbe=SCHWARZ, radius=3, rand=WEISS, dicke=1.5)
+        b.rechteck(bx1 + 3, by + 3, bx1 + 3 + (bx2 - bx1 - 6) * min(feuchte, 100) / 100, by + 8,
                    farbe=WEISS, radius=1)
         gx = bx1 + 3 + (bx2 - bx1 - 6) * grenze / 100
-        b.linie(gx, by - 4, gx, by + 16, dicke=1.5, farbe=HELL)
-        if feuchte < grenze:
-            b.text(x, y + 66, "Bitte gießen", 15, "fett", WEISS)
-        else:
-            b.text(x, y + 66, f"gießen unter {grenze:.0f} %", 13, farbe=HELL)
+        b.linie(gx, by - 3, gx, by + 14, dicke=1.5, farbe=HELL)
 
 
 def zeichne(d):

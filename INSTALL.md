@@ -37,8 +37,8 @@ Find out, by looking where you can and asking where you cannot:
    at the bottom or under Menu → Device Info.) The layout is drawn for **600×800 pixels**, the
    resolution of the Kindle 4. Other resolutions need changes to the layout code, see the end of
    this file.
-4. Which data does the person want on the page? Weather, calendars, waste collection, one plant
-   sensor and room temperatures are supported. Everything except weather is optional.
+4. Which data does the person want on the page? Weather, calendars, waste collection, up to two
+   plant sensors and room temperatures are supported. Everything except weather is optional.
 
 Summarise what you found and ask the open questions in one go.
 
@@ -84,7 +84,7 @@ Summarise what you found and ask the open questions in one go.
    - `WETTER`: a `weather.*` entity that supports daily and hourly forecasts.
    - `KALENDER`: the calendars to show. `MUELL`: the waste calendar. Adjust `MUELLNAMEN` so each
      pair is (word that occurs in the event title, short name to display).
-   - `PFLANZEN`: one soil moisture sensor with a watering threshold in percent.
+   - `PFLANZEN`: up to two soil moisture sensors, each with a watering threshold in percent.
    - `RAEUME`: up to six rooms, each with one or more temperature sensors. The lowest reading per
      room is shown. Check that each sensor really is a measured temperature and not a target
      temperature of a thermostat.

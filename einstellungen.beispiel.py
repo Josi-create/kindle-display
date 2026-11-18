@@ -18,8 +18,8 @@ MUELLNAMEN = [("Restabfall", "Restmüll"), ("Bio", "Bio"), ("Papier", "Papier"),
 AKKU = "input_number.kindle_akku"
 LAEDT = "input_boolean.kindle_ladevorgang"
 
-# Plants: (name in the picture, soil moisture sensor, water below ... %) - only the first one is shown
-PFLANZEN = [("Ficus", "sensor.ficus_feuchtigkeit", 20)]
+# Plants: (name in the picture, soil moisture sensor, water below ... %) - the first two are shown
+PFLANZEN = [("Ficus", "sensor.ficus_feuchtigkeit", 20), ("Yucca", "sensor.yucca_feuchtigkeit", 15)]
 
 # Rooms: all temperature sensors per room; the LOWEST value is shown (no average). At most 6 rooms.
 # The rooms only appear when no rain is expected for 24 hours - otherwise the chart takes their place.
