@@ -34,10 +34,24 @@ The page is in German, and so are the identifiers and comments in the code.
 | `einstellungen.beispiel.py` | Template for your entity names. |
 | `kalenderfilter.py` | Optional: repairs public iCloud calendars so Home Assistant accepts them. |
 | `kindle/` | The two files to put on the Kindle for kindle-dash. |
+| `INSTALL.md` | Step-by-step guide for a coding agent. |
 
 If Home Assistant cannot be reached, the server returns the last good picture for up to six hours.
 
 ## Setup
+
+### Option A: let your coding agent do it
+
+→ Copy this to your coding agent (Claude Code, Codex, Hermes Agent, pi or whatever you prefer):
+
+```
+Read https://raw.githubusercontent.com/Josi-create/kindle-display/main/INSTALL.md and follow it.
+```
+
+[INSTALL.md](INSTALL.md) tells the agent how to set up the server and Home Assistant and how to
+guide you through jailbreaking the Kindle and installing kindle-dash.
+
+### Option B: by hand
 
 1. Create a Home Assistant user without admin rights and a long-lived access token for it.
 2. Copy the templates and fill them in:
@@ -60,7 +74,7 @@ If Home Assistant cannot be reached, the server returns the last good picture fo
 To try the layout without Home Assistant, run `python bild2.py beispiel.png`. It needs Pillow and
 the Noto Sans fonts and draws the example above.
 
-### Kindle
+#### Kindle
 
 Install [kindle-dash](https://github.com/pascalw/kindle-dash) as described there, then replace
 `local/fetch-dashboard.sh` and `local/env.sh` on the Kindle with the files from `kindle/`. Enter
