@@ -1,0 +1,12 @@
+# Nichts Geheimes ins Abbild: nur das, was das Dockerfile ausdrücklich kopiert
+.git
+.env
+ha.env
+einstellungen.py
+.env.beispiel
+ha.env.beispiel
+docker-compose.yml
+kalenderfilter.py
+__pycache__
+docs
+kindle

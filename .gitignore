@@ -1,0 +1,5 @@
+ha.env
+.env
+einstellungen.py
+__pycache__/
+*.bak-*
