@@ -33,6 +33,7 @@ WETTERTEXT = {
     "exceptional": "Unwetter",
 }
 TAGE = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
+TERMINTAGE = 4  # heute, morgen und zwei weitere Tage, falls im Bild Platz ist
 
 
 def _ha(pfad, daten=None):
@@ -128,14 +129,14 @@ def _wetter(zustaende, jetzt):
 
 
 def _termine(jetzt):
-    """Termine für heute und morgen: zwei Listen aus ('09:00 – 18:00' oder 'ganztägig', Titel)."""
+    """Termine ab heute, je Tag eine Liste aus ('09:00 – 18:00' oder 'ganztägig', Titel)."""
     tag0 = jetzt.replace(hour=0, minute=0, second=0, microsecond=0)
     alle = []
     for kalender in KALENDER:
         alle += _dienst("calendar.get_events", kalender, start_date_time=tag0.isoformat(),
-                        end_date_time=(tag0 + timedelta(days=2)).isoformat())["events"]
+                        end_date_time=(tag0 + timedelta(days=TERMINTAGE)).isoformat())["events"]
     listen = []
-    for nr in (0, 1):
+    for nr in range(TERMINTAGE):
         frueh = tag0 + timedelta(days=nr)
         spaet, zeilen = frueh + timedelta(days=1), []
         for termin in alle:
@@ -190,10 +191,13 @@ def sammeln(akku=None, laedt=None):
         "pflanzen": [(name, _zahl(zustaende, fuehler), grenze) for name, fuehler, grenze in PFLANZEN],
     }
     try:
-        d["heute"], d["morgen"] = _termine(jetzt)
+        listen = _termine(jetzt)
+        d["heute"], d["morgen"] = listen[:2]
+        d["weitere"] = [(jetzt.date() + timedelta(days=nr), liste) for nr, liste in enumerate(listen[2:], 2)]
     except Exception as fehler:
         print("Kalender fehlt:", type(fehler).__name__, flush=True)
         d["heute"] = d["morgen"] = None
+        d["weitere"] = []
     try:
         d["muell"] = _muell(jetzt)
     except Exception as fehler:
@@ -205,7 +209,8 @@ def sammeln(akku=None, laedt=None):
 if __name__ == "__main__":
     d = sammeln()
     print("Stand:", f"{d['jetzt']:%d.%m.%Y %H:%M}", "| Akku:", d["akku"], "| lädt:", d["laedt"])
-    print("Termine heute/morgen:", *(len(l) if l is not None else "fehlt" for l in (d["heute"], d["morgen"])))
+    print("Termine heute/morgen/weitere:", *(len(l) if l is not None else "fehlt" for l in (d["heute"], d["morgen"])),
+          *(len(l) for _, l in d["weitere"]))
     print("Wetter:", {k: v for k, v in d["wetter"].items() if k not in ("tage", "stunden")}, d["wetter"]["tage"])
     print("Stunden:", [(f"{z:%H}", t, p) for z, t, p in d["wetter"].get("stunden", [])])
     print("Räume:", d["raeume"])

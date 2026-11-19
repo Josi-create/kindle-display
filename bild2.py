@@ -149,11 +149,13 @@ def verlauf(b, w, y):
 
 
 def termine(b, d, y, unten):
-    """Heute hat immer Vorrang; morgen bekommt die Zeilen, die bis `unten` übrig bleiben."""
+    """Heute hat immer Vorrang; morgen und die Tage danach bekommen, was bis `unten` übrig bleibt."""
     uhr = schrift(21, "fett")
-    zeiten = [zeit for liste in (d["heute"], d["morgen"]) for zeit, _ in liste or [] if zeit[0].isdigit()]
+    tage = [("Heute", d["heute"]), ("Morgen", d["morgen"])]
+    tage += [(WOCHENTAGE[tag.weekday()], liste) for tag, liste in d.get("weitere", [])]
+    zeiten = [zeit for _, liste in tage for zeit, _ in liste or [] if zeit[0].isdigit()]
     spalte = max([84] + [round(uhr.getlength(zeit) / S) + 16 for zeit in zeiten])
-    for ueberschrift, liste in (("Heute", d["heute"]), ("Morgen", d["morgen"])):
+    for ueberschrift, liste in tage:
         platz = int((unten - y - 24) // 32)  # Zeilen unter der Überschrift
         if platz < 1:
             break

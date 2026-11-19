@@ -18,7 +18,8 @@ The page is in German, and so are the identifiers and comments in the code.
 - Chance of rain for the next 24 hours as a bar chart, with the temperature every three hours.
   If no rain is expected, room temperatures are shown in its place.
 - Forecast for the next four days
-- Appointments for today and tomorrow. Today always comes first; tomorrow gets the lines that are left.
+- Appointments for today and tomorrow, plus the following two days while there is room.
+  Today always comes first; later days get the lines that are left.
 - The next two waste collection days
 - Soil moisture of up to two plants, each with a watering threshold
 - At night the sun is replaced by the moon in its current phase
